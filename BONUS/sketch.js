@@ -1,12 +1,11 @@
 // Generated from paren-setup.lisp via ParenScript
 function setup() {
     createCanvas(400, 400);
+    background('#021050');
     return undefined;
 };
 var A = 0;
 function draw() {
-    fill('#021050');
-    rect(0, 0, width, height);
     translate(200 + A * 10, 200 + A * 10);
     rotate(A);
     scale(A / 15);

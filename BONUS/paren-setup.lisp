@@ -5,13 +5,12 @@
 
 (defun setup ()
   (create-canvas 400 400)
+  (background "#021050")
   undefined)
 
 (defvar *a* 0)
 
 (defun draw ()
-  (fill "#021050")
-  (rect 0 0 width height)
   (translate (+ 200 (* *a* 10)) (+ 200 (* *a* 10)))
   (rotate *a*)
   (scale (/ *a* 15))
