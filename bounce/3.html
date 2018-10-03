@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<meta charset="utf-8" />
+</head>
+<body>
+<script>
+function setup() {
+    createCanvas(400, 400);
+    background(220);
+}
+// largely simpified
+function makeBall(a,b,c,d) {
+    return {x : a, deltaX : b, y : c, deltaY : d};
+}
+
+function bounceX (state) {
+    state.x += state.deltaX;
+    if (state.x > width || state.x < 0) {
+        state.deltaX = -state.deltaX;
+    }
+}
+function bounceY (state) {
+    state.y += state.deltaY;
+    if (state.y > height || state.y < 0) {
+        state.deltaY = -state.deltaY;
+    }
+}
+var ball1 = makeBall(10,-3,12,1);
+
+var ball2 = makeBall(70,1,162,2);
+
+var ball3 = makeBall(360,2,26,-1);
+
+function drawBall (state) {
+    fill(state.x, state.y,
+          state.x/state.y);
+    ellipse(state.x, state.y, 40);
+    bounceX(state);
+    bounceY(state);
+}
+
+function draw() {
+    noStroke();
+    drawBall(ball1);
+    drawBall(ball2);
+    drawBall(ball3);
+}
+</script>
+</body>
+</html>

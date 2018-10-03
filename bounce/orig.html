@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<meta charset="utf-8" />
+</head>
+<body>
+<script>
+function setup() {
+    createCanvas(400, 400);
+}
+
+var x = 10;
+var changeInX = 3;
+
+function draw() {
+    background(220);
+
+    ellipse(x, 200, 40);
+
+    x = x + changeInX;
+
+    if (x > width) {
+        changeInX = -3;
+    }
+
+    if (x < 0) {
+        changeInX = 3;
+    }
+}
+</script>
+</body>
+</html>

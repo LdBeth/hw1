@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<meta charset="utf-8" />
+</head>
+<body>
+<script>
+function setup() {
+    createCanvas(400, 400);
+}
+
+// closure
+function makeBall(obj) {
+    // so i can pass reference
+    var statObj = Object.create(obj); // copy object
+    var timer = 0;
+    function reset() {
+        statObj = Object.create(obj);
+        timer = 0;
+    }
+    function state () {
+        return statObj;
+    }
+    function count () {
+        let tmp = timer // pscf
+        timer++;
+        return tmp;
+    }
+    return {
+        reset : reset,
+        state : state,
+        count : count
+    };
+}
+
+var ball1 = makeBall({x : 10, deltaX : 3});
+var state1 = ball1.state;
+
+var ball2 = makeBall({y : 12, deltaY : 2});
+var state2 = ball2.state;
+
+function bounceX (state) {
+    state().x += state().deltaX;
+    if (state().x > width || state().x < 0) {
+        state().deltaX = -state().deltaX;
+    }
+}
+function bounceY (state) {
+    state().y += state().deltaY;
+    if (state().y > height || state().y < 0) {
+        state().deltaY = -state().deltaY;
+    }
+}
+function draw() {
+    background(220);
+
+    // prevent from offscreen
+    ellipse(Math.min(state1().x,400), 200, 40);
+
+    bounceX(state1);
+    // gravity simulation
+    state1().deltaX++;
+    // a circle of 700 frame
+    if (ball1.count() > 700) {ball1.reset()}
+
+    // second ball
+    var ball2time = ball2.count()
+    ellipse(100,state2().y, ball2time/2, 50);
+    bounceY(state2);
+    if (ball2time > 400) {ball2.reset()}
+
+}
+</script>
+</body>
+</html>
